@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Software Developer Man 👨🏽‍💻 | GitHub Campus Expert 🚩 | Docker Campus Ambassador 🐳 | MLH Fellow 😎
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Over the past years I've contributed to open source, and helped different communities to grow. I love to keep learning, and my last interesting subject I'm getting involved is Cybersecurity. If you would like to see some of my events, click [here](https://githubcampus.expert/roeeyn/).
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+I've been working primarily on Python and JavaScript, both with different libraries and frameworks.
 
+I decided to write posts that shows useful, but hard to find knowledge. Also, I try to make beginner friendly content that makes easier to jump in the developer path.
 
-[jekyll-organization]: https://github.com/jekyll
+Spacemacs lover 💜

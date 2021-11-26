@@ -17,7 +17,7 @@ General requirements:
 - [ ] VPS/server/droplet (I'm using [digital ocean](https://www.digitalocean.com/) but any server works)
 - [ ] A domain (I'm using a domain bought and configured in Google domains, but if you can modify the A registries, you're good to go)
 
-# 1. Spin up your server
+## 1. Spin up your server
 
 For this, I'm going to use [Digital Ocean](https://www.digitalocean.com/), but this can be done in practically any cloud provider.
 I created a droplet (VPS) with the following features:
@@ -40,7 +40,7 @@ To install this, I first updated the packages with:
 sudo apt update -y && sudo apt upgrade -y
 ```
 
-## 1.1 [OPTIONAL] Installing tmux and nice terminal
+### 1.1 [OPTIONAL] Installing tmux and nice terminal
 
 I like to have tmux and some preconfigured vim, so I use [this script](https://github.com/roeeyn/dotfiles/blob/master/script/bootstrap_remote_server.sh) which configures this for me.
 
@@ -57,7 +57,7 @@ curl -L https://raw.githubusercontent.com/roeeyn/dotfiles/master/script/bootstra
 After this, you need to log out and log in again to start with zsh.
 
 
-## 1.2 Install Docker
+### 1.2 Install Docker
 
 Then executed the official commands from [Docker documentation](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository):
 
@@ -78,7 +78,7 @@ sudo apt update -y
 sudo apt install docker-ce docker-ce-cli containerd.io
 ```
 
-## 1.3 Install Docker Compose
+### 1.3 Install Docker Compose
 
 Following the official docker-compose [documentation](https://docs.docker.com/compose/install/), we can install this with:
 
@@ -90,7 +90,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-# 2. Clone the CTFd repository
+## 2. Clone the CTFd repository
 
 We need to clone the CTFd repository, which contains all the files that we need to set up our platform.
 
@@ -98,7 +98,7 @@ We need to clone the CTFd repository, which contains all the files that we need 
 git clone https://github.com/CTFd/CTFd.git
 ```
 
-# 3. Initialize the Platform
+## 3. Initialize the Platform
 
 After cloning the repo, we can access the CTFd directory with `cd CTFd` and there we can see all the platform files.
 
@@ -120,7 +120,7 @@ Here you will need to set up the information about your CTF.
 
 ![Proof of working IP](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902942/articles/ctfd%20with%20https/3.2.png)
 
-# 4. Add the IP to your DNS
+## 4. Add the IP to your DNS
 
 When you already have your platform up and running, you need to register it to your domain. For this, I'm using [Google domains](https://domains.google.com/), and you need to add an A register to the domain. In my case, it looks like the following:
 
@@ -130,11 +130,11 @@ If everything went well, at this point you should already be having the platform
 
 ![Proof of working domain](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/4.2.png)
 
-# 5. Add a Certificate with Certbot (Let's Encrypt)
+## 5. Add a Certificate with Certbot (Let's Encrypt)
 
 For adding a certificate we need to execute some more steps.
 
-## 5.1 Generate a certificate
+### 5.1 Generate a certificate
 
 Before creating the certbot certificate, make sure to **stop all the containers from the previous steps**.
 If you ran your containers from previous steps in *normal* mode (no `-d` after `docker-compose`), you can only press Ctrl-C in the running process.
@@ -205,7 +205,7 @@ If you like Certbot, please consider supporting our work by:
  * Donating to EFF:                    https://eff.org/donate-le
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ```
-## 5.2 Copy Your Recently Created Certificates
+### 5.2 Copy Your Recently Created Certificates
 
 Your certificates should now be in `/etc/letsencrypt/live/YOUR_DOMAIN/`. In my case, it is `/etc/letsencrypt/live/examplectf.manguitoblue.io/`.
 Let's copy `fullchain.pem` and `privkey.pem` into the CTFd folder, so we can use this inside our nginx container. For this, you can execute:
@@ -216,7 +216,7 @@ cp /etc/letsencrypt/live/YOUR_DOMAIN/fullchain.pem ./conf/nginx/fullchain.pem
 cp /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem ./conf/nginx/privkey.pem
 ```
 
-## 5.3 Modify Your docker-compose Configuration
+### 5.3 Modify Your docker-compose Configuration
 
 After copying the certificates to the CTFd files, you need to add them to the nginx container volume, so they can be used inside the container. For this, you need to update the volumes section of the nginx service inside the `docker-compose.yml` with the following:
 
@@ -312,11 +312,11 @@ networks:
         internal: true
 ```
 
-## 5.4 Modify Your Nginx Configuration
+### 5.4 Modify Your Nginx Configuration
 
 Finally, we need to specify in the `conf/nginx/http.conf` that we want to use the certificates and the SSL, and also, redirect any traffic from http to https. For this, we need to do the following:
 
-### 5.4.1 Add the http redirect
+#### 5.4.1 Add the http redirect
 
 ```nginx
 server {
@@ -325,7 +325,7 @@ server {
 }
 ```
 
-### 5.4.2 Define the SSL certificates
+#### 5.4.2 Define the SSL certificates
 
 ```nginx
 server {
@@ -402,7 +402,7 @@ http {
 }
 ```
 
-# 6. Restart docker-compose containers
+## 6. Restart docker-compose containers
 
 As we needed to stop all the containers to create the certificate, we need to start them again. This time (and if the previous steps worked well) we may run it in detached mode, so they can be living there even when we log out from the remote server. For this, we can execute:
 
@@ -418,7 +418,7 @@ If everything went well, you may now see that the page has a valid certificate.
 
 ![Proof of working certificate](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/5.1.png)
 
-# Wrap up
+## Wrap up
 
 Even if they seem to be lots of steps, they aren't as hard as they seem in the beginning. CTFd and certbot are great projects very well maintained and you shouldn't have any issues while using them.
 

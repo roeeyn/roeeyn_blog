@@ -9,17 +9,17 @@ layout: post
 date: 2021-11-25 18:34:51 -0500
 categories: ctf, ctfd, https
 ---
-If you want to organize and host a CTF event, one of the best and easiest option availabe for managing this is [CTFd](https://github.com/CTFd/CTFd).
+If you want to organize and host a CTF event, one of the best and easiest options available for managing this is [CTFd](https://github.com/CTFd/CTFd).
 
-This open source platform lets you manage users, challenges and their categories in a very easy way, so the only thing we need to do is to clone the spin up a server, clone the repo, run the docker compose and setup the TLS certificate.
+This open-source platform lets you manage users, challenges, and their categories in a very easy way, so the only thing we need to do is to clone the spin up a server, clone the repo, run the docker-compose, and set up the TLS certificate.
 
 General requirements:
 - [ ] VPS/server/droplet (I'm using [digital ocean](https://www.digitalocean.com/) but any server works)
-- [ ] A domain (I'm using a domain buyed and configured in Google domains, but if you can modify the A registries, you're good to go)
+- [ ] A domain (I'm using a domain bought and configured in Google domains, but if you can modify the A registries, you're good to go)
 
 # 1. Spin up your server
 
-For this I'm going to use [Digital Ocean](https://www.digitalocean.com/), but this can be done in practically any cloud provider.
+For this, I'm going to use [Digital Ocean](https://www.digitalocean.com/), but this can be done in practically any cloud provider.
 I created a droplet (VPS) with the following features:
 
 IMAGENES
@@ -39,7 +39,7 @@ sudo apt update -y && sudo apt upgrade -y
 
 ## 1.1 [OPTIONAL] Installing tmux and nice terminal
 
-I like to have tmux and some preconfigure vim, so I use [this script](https://github.com/roeeyn/dotfiles/blob/master/script/bootstrap_remote_server.sh) which configures this for me.
+I like to have tmux and some preconfigured vim, so I use [this script](https://github.com/roeeyn/dotfiles/blob/master/script/bootstrap_remote_server.sh) which configures this for me.
 
 You can have it by executing:
 
@@ -51,7 +51,7 @@ sudo apt install zsh
 curl -L https://raw.githubusercontent.com/roeeyn/dotfiles/master/script/bootstrap_remote_server.sh | sh
 ```
 
-After this you need to log out and log in again to start with zsh.
+After this, you need to log out and log in again to start with zsh.
 
 
 ## 1.2 Install Docker
@@ -89,7 +89,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # 2. Clone the CTFd repository
 
-We need to clone the CTFd repository, which contains all the files that we need to setup our platform.
+We need to clone the CTFd repository, which contains all the files that we need to set up our platform.
 
 ```shell
 git clone https://github.com/CTFd/CTFd.git
@@ -113,7 +113,7 @@ This will pull all the docker images and create all the needed containers. After
 
 IMAGEN del setup
 
-Here you will need to setup the information about your CTF.
+Here you will need to set up the information about your CTF.
 
 # 4. Add the IP to your DNS
 
@@ -132,8 +132,8 @@ For adding a certificate we need to execute some more steps.
 ## 5.1 Generate a certificate
 
 Before creating the certbot certificate, make sure to **stop all the containers from the previous steps**.
-If you ran your containers in *normal* mode (no `-d` after `docker-compose`), you can only press Ctrl-C in the running process.
-If you ran your containers in detached moded (with the `-d` flag after `docker-compose`) you should execute `docker-compose down` inside the `CTFd` directory.
+If you ran your containers from previous steps in *normal* mode (no `-d` after `docker-compose`), you can only press Ctrl-C in the running process.
+If you ran your containers from previous steps in detached moded (with the `-d` flag after `docker-compose`) you should execute `docker-compose down` inside the `CTFd` directory.
 
 The easiest way to generate a certificate is with the certbot docker image. Following the [official documentation](https://eff-certbot.readthedocs.io/en/stable/install.html#running-with-docker), this can be done with the following:
 
@@ -144,7 +144,7 @@ docker run -it --rm --name certbot \
           certbot/certbot certonly
 ```
 
-We should select the `Spin up a temporary server` option, enter  your email, accept the agreements, and enter the domain we're planning to use.
+We should select the `Spin up a temporary server` option, enter your email, accept the agreements, and enter the domain we're planning to use.
 This is similar to what you should see:
 
 ```
@@ -202,7 +202,7 @@ If you like Certbot, please consider supporting our work by:
 ```
 ## 5.2 Copy Your Recently Created Certificates
 
-Your certificates should now be in `/etc/letsencrypt/live/YOUR_DOMAIN/`. In my case it is `/etc/letsencrypt/live/examplectf.manguitoblue.io/`.
+Your certificates should now be in `/etc/letsencrypt/live/YOUR_DOMAIN/`. In my case, it is `/etc/letsencrypt/live/examplectf.manguitoblue.io/`.
 Let's copy `fullchain.pem` and `privkey.pem` into the CTFd folder, so we can use this inside our nginx container. For this, you can execute:
 
 ```shell
@@ -213,7 +213,7 @@ cp /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem ./conf/nginx/privkey.pem
 
 ## 5.3 Modify Your docker-compose Configuration
 
-After copying the certificates to the CTFd files, you need to add it to the nginx container volume, so they can be used inside the container. For this, you need to update the volumes section of the nginx service inside the `docker-compose.yml` with the following:
+After copying the certificates to the CTFd files, you need to add them to the nginx container volume, so they can be used inside the container. For this, you need to update the volumes section of the nginx service inside the `docker-compose.yml` with the following:
 
 ```yaml
 ...
@@ -333,7 +333,7 @@ server {
   ...
 ```
 
-At the end, the complete `conf/nginx/http.conf` file should look something like this:
+In the end, the complete `conf/nginx/http.conf` file should look something like this:
 
 ```yaml
 worker_processes 4;
@@ -399,7 +399,7 @@ http {
 
 # 6. Restart docker-compose containers
 
-As we needed to stop all the containers to create the certificate, we need to start them again. This time (and if the previous steps worked well) we may run it in detached mode, so they can be living there even when we logout from the remote server. For this, we can execute:
+As we needed to stop all the containers to create the certificate, we need to start them again. This time (and if the previous steps worked well) we may run it in detached mode, so they can be living there even when we log out from the remote server. For this, we can execute:
 
 ```shell
 # Inside the CTFd repo directory
@@ -413,7 +413,7 @@ If everything went well, you may now see that the page has a valid certificate.
 
 # Wrap up
 
-Even if they seem to be lots of steps, they aren't as hard as they seem in the beginning. CTFd and certbot are great projects very well mantained and you shouldn't have much issues while using them.
+Even if they seem to be lots of steps, they aren't as hard as they seem in the beginning. CTFd and certbot are great projects very well maintained and you shouldn't have any issues while using them.
 
 If this guide helped you, please consider giving it a like.
 Good luck in your CTF, and happy hacking!

@@ -58,7 +58,7 @@ We need to copy the Spacemacs folder into the `~/.emacs.d`. For this, we need to
 
 # 6. Giving permissions
 
-As MacOS Catalina has new security features, we need to give ****Full Disk Access**** to the `/usr/bin/ruby` script which is the one that launches Spacemacs.
+As MacOS Catalina has new security features, we need to give **Full Disk Access** to the `/usr/bin/ruby` script which is the one that launches Spacemacs.
 
 For this, go to `System Preferences`, and then into `Security and Privacy`.
 

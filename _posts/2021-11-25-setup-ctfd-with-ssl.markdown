@@ -335,7 +335,7 @@ server {
 
 In the end, the complete `conf/nginx/http.conf` file should look something like this:
 
-```yaml
+```nginx
 worker_processes 4;
 
 events {
@@ -410,6 +410,8 @@ docker-compose up -d
 ```
 
 If everything went well, you may now see that the page has a valid certificate.
+
+IMAGEN con el certificado
 
 # Wrap up
 

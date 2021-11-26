@@ -22,7 +22,10 @@ General requirements:
 For this, I'm going to use [Digital Ocean](https://www.digitalocean.com/), but this can be done in practically any cloud provider.
 I created a droplet (VPS) with the following features:
 
-IMAGENES
+![Sample digital ocean server](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902940/articles/ctfd%20with%20https/1.1.png)
+![Sample digital ocean server](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902940/articles/ctfd%20with%20https/1.2.png)
+![Sample digital ocean server](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902942/articles/ctfd%20with%20https/1.3.png)
+![Sample digital ocean server](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/1.4.png)
 
 After connection to the new server (`ssh root@YOUR_IP`), the requirements are the following:
 
@@ -109,21 +112,23 @@ docker-compose up
 docker-compose up -d
 ```
 
-This will pull all the docker images and create all the needed containers. After finishing the startup process, the landing page of the platform should be available in the public ip.
+This will pull all the docker images and create all the needed containers. After finishing the startup process, the landing page of **the platform should be available in the public ip**.
 
-IMAGEN del setup
+![Proof of working IP](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902940/articles/ctfd%20with%20https/3.1.png)
 
 Here you will need to set up the information about your CTF.
+
+![Proof of working IP](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902942/articles/ctfd%20with%20https/3.2.png)
 
 # 4. Add the IP to your DNS
 
 When you already have your platform up and running, you need to register it to your domain. For this, I'm using [Google domains](https://domains.google.com/), and you need to add an A register to the domain. In my case, it looks like the following:
 
-IMAGEN del registro A
+![Google Domains demo](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/4.1.png)
 
 If everything went well, at this point you should already be having the platform at your domain (with NO certificate or https yet).
 
-IMAGEN con el dominio
+![Proof of working domain](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/4.2.png)
 
 # 5. Add a Certificate with Certbot (Let's Encrypt)
 
@@ -411,7 +416,7 @@ docker-compose up -d
 
 If everything went well, you may now see that the page has a valid certificate.
 
-IMAGEN con el certificado
+![Proof of working certificate](https://res.cloudinary.com/dmrgfufa4/image/upload/v1637902941/articles/ctfd%20with%20https/5.1.png)
 
 # Wrap up
 

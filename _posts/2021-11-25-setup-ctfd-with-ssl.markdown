@@ -7,7 +7,7 @@ cover_image: https://res.cloudinary.com/dmrgfufa4/image/upload/v1598668440/artic
 
 layout: post
 date: 2021-11-25 18:34:51 -0500
-categories: ctf, ctfd, https
+categories: ctf ctfd https
 ---
 If you want to organize and host a CTF event, one of the best and easiest options available for managing this is [CTFd](https://github.com/CTFd/CTFd).
 

@@ -12,4 +12,4 @@ I've been working primarily on Python and JavaScript, both with different librar
 
 I decided to write posts that shows useful, but hard to find knowledge. Also, I try to make beginner friendly content that makes easier to jump in the developer path.
 
-Spacemacs lover 💜
+Neovim ~Spacemacs~ lover 💜
